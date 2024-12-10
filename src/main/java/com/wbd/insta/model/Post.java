@@ -14,9 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post extends BaseEntity {
+    //Post caption data
 private String caption;
+//One post can have multiple images
 @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 private List<Image> image;
+//One post can have multiple comments
 @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 private List<Comment> comment;
 }

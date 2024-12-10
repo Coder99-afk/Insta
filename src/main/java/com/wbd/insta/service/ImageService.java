@@ -17,7 +17,10 @@ import java.util.UUID;
 
 @Service
 public class ImageService {
-    private static final String IMAGE_DIRECTORY="/Users/aswain/Documents/InstaImages";
+    //Indicates the location of the local folder where the uploaded images will be saved.
+    static final String IMAGE_DIRECTORY="/Users/aswain/Documents/InstaImages";
+    //Saves the image(s) for multiple posts based on their post id, after checking their file format and file size such that
+    //it follows the desired norm.
     public String saveImage(MultipartFile imageFile, Long postId) throws IOException {
         if(imageFile.getSize()>FileSize.FILE_SIZE.getSizeInBytes()){
             throw new RuntimeException("File size is too large");
@@ -44,7 +47,7 @@ public class ImageService {
         Files.write(filePath, newImgFile.getBytes());
         return fileName;
     }
-
+//Converts all image formats(jpg,png,bmp) to jpeg type.
     private MultipartFile changeContentTypeToJpg(MultipartFile imageFile) throws IOException {
         return new MockMultipartFile(
                 imageFile.getName(),
@@ -53,7 +56,7 @@ public class ImageService {
                 imageFile.getBytes()
         );
     }
-
+//Retrieves all image files that belongs to a particular post based on post id.
     public List<MultipartFile> retrieveImagesForPost(Long postId) throws IOException {
         List<MultipartFile> multipartFiles= new ArrayList<>();
         File directory= new File(IMAGE_DIRECTORY);

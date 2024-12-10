@@ -24,28 +24,38 @@ public class PostController {
     private CommentService commentService;
     @Autowired
     private ImageService imageService;
+    //API Endpoint for fetching the list of all posts along with the last 2 comments on each post.
     @GetMapping("/post")
     public List<CustomDTO> getAllPosts(@RequestParam(value = "pageNumber",defaultValue = "1", required = false)int pageNumber,
                                    @RequestParam(value = "pageSize", defaultValue = "3", required = false)int pageSize) throws IOException {
         return postService.getAllPosts(pageNumber,pageSize);
     }
+    // For fetching all the images associated with that particular post.
     @GetMapping("/images/{postId}")
     public ResponseEntity<List<MultipartFile>> retrieveImageForPost(@PathVariable long postId) throws IOException {
         return new ResponseEntity<>(imageService.retrieveImagesForPost(postId),HttpStatus.OK);
     }
+    //Creating a new post by providing caption and image(s)
     @PostMapping("/post")
     public ResponseEntity<Post> createPost(@RequestParam("caption") String caption,
                                            @RequestBody List<MultipartFile> images) throws IOException {
         Post post= postService.createPost(caption, images);
         return ResponseEntity.ok(post);
     }
+    //Adding comment on a particular post
     @PostMapping("/comment/{postId}")
     public ResponseEntity<Comment> addComment(@PathVariable long postId, @RequestParam String comment){
         return new ResponseEntity<>(commentService.addComment(postId,comment), HttpStatus.OK);
     }
+    //Deleting comment
     @DeleteMapping("/comment/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable long commentId){
         return new ResponseEntity<>(commentService.deleteComment(commentId), HttpStatus.OK);
+    }
+    //Handling exceptions
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleException(IllegalArgumentException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }

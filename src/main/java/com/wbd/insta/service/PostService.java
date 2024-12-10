@@ -23,11 +23,12 @@ public class PostService {
     private ImageRepo imageRepo;
     @Autowired
     private ImageService imageService;
+    //Fetching the list of all posts along with the last 2 comments on each post.
     public List<CustomDTO> getAllPosts(int pageNumber, int pageSize) throws IOException {
         Pageable pageable= PageRequest.of(pageNumber,pageSize);
         return postRepo.findAllPosts(pageable);
     }
-
+    //Creating a new post by providing caption and image(s).
     public Post createPost(String caption, List<MultipartFile> images) throws IOException {
         Post post= new Post();
         post.setCaption(caption);

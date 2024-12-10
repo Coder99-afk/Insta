@@ -7,7 +7,6 @@ import com.wbd.insta.repository.PostRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -15,7 +14,7 @@ public class CommentService {
     private PostRepo postRepo;
     @Autowired
     private CommentRepo commentRepo;
-
+//Adds comment to a post, identified using the post id.
     public Comment addComment(Long postId, String comment){
         Post post= postRepo.findById(postId).orElseThrow(()->new RuntimeException("Post not found"));
         Comment comment1= new Comment();
@@ -23,7 +22,7 @@ public class CommentService {
         comment1.setPost(post);
         return commentRepo.save(comment1);
     }
-
+//Deletes comments based on the comment id.
     public String deleteComment(Long commentId){
         Comment comment= commentRepo.findById(commentId).orElseThrow(()->new RuntimeException("Comment not found"));
         commentRepo.delete(comment);

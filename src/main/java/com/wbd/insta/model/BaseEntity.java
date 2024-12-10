@@ -9,6 +9,7 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+//Class generates id for each of the model classes
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Common_seq")

@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class Comment extends BaseEntity{
     @Column
     private String comments;
+    //One post can have multiple commnets
     @ManyToOne
     private Post post;
     @Column(name = "created_at", nullable = false, updatable = false)

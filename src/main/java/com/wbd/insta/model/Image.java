@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Image extends BaseEntity{
+    //One post can have multiple image files
     @ManyToOne
     private Post post;
     private String imageName;
