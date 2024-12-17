@@ -18,7 +18,7 @@ public interface PostRepo extends JpaRepository<Post, Long> {
 //            "LEFT JOIN p.image i " +
 //            "WHERE (SELECT COUNT(c2) FROM Comment c2 WHERE c2.post = p AND c2.createdAt >= c.createdAt) <= 2 " +
 //            "ORDER BY SIZE(p.comment) DESC, c.createdAt DESC")
-@Query("SELECT new com.wbd.insta.dto.CustomDTO(p.id, p.caption, c.id, c.comments)" +
+@Query("SELECT new com.wbd.insta.dto.CustomDTO(p.id, p.caption, COALESCE(c.id, 0), COALESCE(c.comments, ''))" +
         "FROM Post p " +
         "LEFT JOIN p.comment c " +
         "WHERE (SELECT COUNT(c2) FROM Comment c2 WHERE c2.post = p AND c2.createdAt >= c.createdAt) <= 2 " +

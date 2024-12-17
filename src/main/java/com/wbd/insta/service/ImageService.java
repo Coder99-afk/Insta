@@ -18,7 +18,7 @@ import java.util.UUID;
 @Service
 public class ImageService {
     //Indicates the location of the local folder where the uploaded images will be saved.
-    static final String IMAGE_DIRECTORY="/Users/aswain/Documents/InstaImages";
+    static String IMAGE_DIRECTORY="/Users/aswain/Documents/InstaImages";
     //Saves the image(s) for multiple posts based on their post id, after checking their file format and file size such that
     //it follows the desired norm.
     public String saveImage(MultipartFile imageFile, Long postId) throws IOException {
