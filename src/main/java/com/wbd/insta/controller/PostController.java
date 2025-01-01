@@ -38,7 +38,7 @@ public class PostController {
     //Creating a new post by providing caption and image(s)
     @PostMapping("/post")
     public ResponseEntity<Post> createPost(@RequestParam("caption") String caption,
-                                           @RequestBody List<MultipartFile> images) throws IOException {
+                                           @RequestParam("images") List<MultipartFile> images) throws IOException {
         Post post= postService.createPost(caption, images);
         return ResponseEntity.ok(post);
     }
@@ -49,8 +49,9 @@ public class PostController {
     }
     //Deleting comment
     @DeleteMapping("/comment/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable long commentId){
-        return new ResponseEntity<>(commentService.deleteComment(commentId), HttpStatus.OK);
+    public ResponseEntity<String> deleteComment(@PathVariable long commentId) {
+        String responseMessage = commentService.deleteComment(commentId);
+        return ResponseEntity.ok(responseMessage);
     }
     //Handling exceptions
     @ExceptionHandler(IllegalArgumentException.class)
