@@ -7,6 +7,7 @@ import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Comment extends BaseEntity{
     @Column
+    @JsonProperty("comments")
     private String comments;
     //One post can have multiple commnets
     @ManyToOne

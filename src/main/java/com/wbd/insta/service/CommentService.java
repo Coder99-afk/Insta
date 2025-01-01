@@ -17,15 +17,18 @@ public class CommentService {
 //Adds comment to a post, identified using the post id.
     public Comment addComment(Long postId, String comment){
         Post post= postRepo.findById(postId).orElseThrow(()->new RuntimeException("Post not found"));
-        Comment comment1= new Comment();
-        comment1.setComments(comment);
-        comment1.setPost(post);
-        return commentRepo.save(comment1);
+        Comment newComment = new Comment();
+        newComment.setComments(comment);
+        newComment.setPost(post);
+        Comment savedComment = commentRepo.save(newComment);
+        return savedComment;
     }
 //Deletes comments based on the comment id.
     public String deleteComment(Long commentId){
-        Comment comment= commentRepo.findById(commentId).orElseThrow(()->new RuntimeException("Comment not found"));
+        Comment comment = commentRepo.findById(commentId).orElseThrow(() -> new RuntimeException("Comment not found"));
         commentRepo.delete(comment);
-        return "Comment deleted successfully!";
+        String responseMessage = "Comment deleted successfully";
+        System.out.println("deleteComment response: " + responseMessage);
+        return responseMessage;
     }
 }

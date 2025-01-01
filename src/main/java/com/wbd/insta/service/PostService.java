@@ -35,7 +35,7 @@ public class PostService {
         Post p1 = postRepo.save(post);
         List<Image> imageList= new ArrayList<>();
         for(MultipartFile image: images){
-            String imgFile= imageService.saveImage(image,post.getId());
+            String imgFile= imageService.saveImage(image, p1.getId());
             System.out.println(imgFile);
             Image img= new Image();
             img.setImageName(image.getOriginalFilename());
@@ -45,7 +45,7 @@ public class PostService {
             imageList.add(img);
             imageRepo.save(img);
         }
-        post.setImage(imageList);
-        return postRepo.save(post);
+        p1.setImage(imageList);
+        return postRepo.save(p1);
     }
 }
